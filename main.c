@@ -9,7 +9,6 @@ void data_input(int count, struct student *s);
 void data_output(int count, struct student *s);
 int data_save(int count, struct student *s, const char *file);
 struct student *data_read(const char *file, int *count);
-int err = 0;
 
 int main() {
 	int c = 0;
@@ -22,9 +21,10 @@ int main() {
 	printf("Do you want to see existing student data?\n");
 	scanf("%d", &yn);
 	if (yn == 1) {
+		printf("Reading %s\n", file)
 		data = data_read(file, &c);
 		if (!data)
-			printf("Error reading database: %d (%%m)\n", err);
+			printf("Error reading database: %m\n", err);
 		else
 			data_output(c, data);
 	}
@@ -40,7 +40,10 @@ int main() {
 	scanf("%d", &yn);
 	if (yn == "1") {
 		printf("Saving data to %s ...\n", file);
-		data_save( c, s, file);
+		err = data_save( c, s, file);
+		if (err) {
+			printf("Error savong data: %d(%m)\n");
+		}
 	}
 
 	free(s);
