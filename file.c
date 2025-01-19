@@ -29,36 +29,40 @@ int data_save(int count, struct student *s, const char *file) {
 struct student *data_read(const char *file, int *count) {
 	int fd;
 	ssize_t br = 0;
-	*count = 1;
+	*count = 0;
 	struct student *data = NULL;
 
 	printf("count is %d ", *count);
 	if (!file)
 		return data;
 
-	fd = open(file, O_RDWR, 0600 );
+	fd = open(file, O_RDONLY );
 	if (fd < 0) {
 		printf("Error opening file: %d (%m)\n", fd);
 		return data;
 	}
 	
 	data = (struct student *)malloc(sizeof(struct student));
-	if (!data)
-		goto exit;
+	if (!data) {
+		close(fd);
+		return NULL;
+	}
 
 	while(1) {
-		br = read(fd, data + *count, sizeof(struct student));
+		br = read(fd, &data[*count], sizeof(struct student));
 		if (br != sizeof(struct student))
 			break;
 		(*count)++;
-		data = (struct student *)realloc(data, sizeof(struct student) * (*count + 1));
-		if (!data) {
-			printf("Realloc faled\n");
-			break;
+		struct student *temp = (struct student *)realloc(data, sizeof(struct student) * (*count + 1));
+		//data = (struct student *)realloc(data, sizeof(struct student) * (*count + 1));
+		if (!temp) {
+			printf("Realloc failed\n");
+			free(data);
+			close(fd);
+			return NULL;
 		}
+		data = temp;
 	}
-
-exit:
 	close(fd);
 	return data;
 
