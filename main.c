@@ -38,7 +38,7 @@ int main() {
 
 	printf("Do you want to save data(1/0)?");
 	scanf("%d", &yn);
-	if (yn == "1") {
+	if (yn == 1) {
 		printf("Saving data to %s ...\n", file);
 		data_save( c, s, file);
 	}
