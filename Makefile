@@ -1,6 +1,6 @@
 
 CC = gcc
-BIN = StudentDataBase
+BIN = student-db
 SOUECES = file.c inout.c main.c
 OBJECTS = $(SOURCES:.c=.o)
 
