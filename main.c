@@ -29,14 +29,14 @@ int main() {
 			data_output(c, data);
 	}
 
-	printf("PLease enter the number of students (less then 10): ");
+	printf("PLease enter the number of students (less then 10): \n");
 	scanf("%d", &c);
 	s = (struct student *)malloc( sizeof(struct student) * c);
 	
 	data_input(c, s );
 	data_output(c, s );
 
-	printf("Do you want to save data(1/0)?");
+	printf("Do you want to save data(1/0)?\n");
 	scanf("%d", &yn);
 	if (yn == 1) {
 		printf("Saving data to %s ...\n", file);

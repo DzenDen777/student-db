@@ -1,2 +1,11 @@
 *.o
 StudentDataBase
+data.bin
+.built*
+.configured_*
+.pkgdir/
+.prepared
+.quilt_checked
+.source_dir
+apk-i386_pentium4/
+ipkg-i386_pentium4/
